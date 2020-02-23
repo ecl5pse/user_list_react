@@ -1,70 +1,87 @@
 import React ,{Component , Fragment} from 'react';
 import  styles from './App.module.css';
+import  Icon from '@mdi/react';
+import { mdiCheck } from '@mdi/js';
+import _  from 'lodash';
+
+
+const value =  [
+  {
+    id: 1,
+    firstName: 'Brian',
+    lastName: 'McCauley',
+    profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
+
+  },
+  {
+    id: 2,
+    firstName: 'Chad',
+    lastName: 'Hayes',
+    profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
+
+  },
+
+  {
+    id: 3,
+    firstName: 'Jeff',
+    lastName: 'Buck',
+    profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
+
+  },
+  {
+    id: 4,
+    firstName: 'Kenny',
+    lastName: 'Griffin',
+    profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
+
+  },
+
+  {
+    id: 5,
+    firstName: 'Tom',
+    lastName: 'Glover',
+    profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
+
+  }
+
+]
+
+
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = [
-      {
-        id: 1,
-        firstName: 'Brian',
-        lastName: 'McCauley',
-        profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
-        isCheck:true
+      this.state = {
+        items:value.map(data =>({...data, isSelect:false})),
 
-      },
-      {
-        id: 2,
-        firstName: 'Chad',
-        lastName: 'Hayes',
-        profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
-        isCheck:true
-      },
-
-      {
-        id: 3,
-        firstName: 'Jeff',
-        lastName: 'Buck',
-        profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
-        isCheck:true
-      },
-      {
-        id: 4,
-        firstName: 'Kenny',
-        lastName: 'Griffin',
-        profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
-        isCheck:true
-      },
-
-      {
-        id: 5,
-        firstName: 'Tom',
-        lastName: 'Glover',
-        profileImage: 'https://marvel-live.freetls.fastly.net/canvas/2018/7/b637481eb0374435843150483fbb5fe8?quality=95&fake=.png',
-        isCheck:true
       }
+  }
 
-    ]
+  onCheckHandler = () => {
+
+    this.setState({
+                    isSelect: !this.state.isSelect
+                  });
+
+    console.table(this.state)
   }
 
 
-
-
-
-
   render() {
+    const  {items} = this.state;
     return (
         <Fragment>
           <div className={styles.header}></div>
           {
-            this.state.map((state) => (
-                <div className={styles.container} key={state.id}>
-                  <h1 className={styles.name}> {state.firstName}{state.lastName}</h1>
-                  <h4 className={styles.level}> Level{state.id}</h4>
-                  <img src={state.profileImage} alt='profile image'/>
-                  <div className={styles.checkbox}></div>
-                </div>
+              items.map(data=> (
+                  <div className={styles.container} key={data.id}>
+                    <h1 className={styles.name}>{data.firstName}{data.lastName}</h1>
+                     <h4 className={styles.level}> Level{data.id}</h4>
+                   <img  src={data.profileImage} alt='user image'/>
+                    <Icon path={mdiCheck} className={styles.icon } color='red' size='30'  onClick={event => {
+                      this.onCheckHandler();}}/>
+            </div>
             ))
 
           }
